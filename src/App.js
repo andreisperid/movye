@@ -1,5 +1,5 @@
 import "./App.css";
-import react, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import theMovieDBKey from "./keys/keys";
 import Movies from "./components/page/Movies";
 
@@ -34,10 +34,21 @@ function App() {
         setGenresReference(genresMap);
       })
       .catch((err) => console.error(err));
-      
+
+    fetch("https://api.themoviedb.org/3/movie/1022789/videos?language=en-US", theMovieDBOptions)
+      .then((response) => response.json())
+      .then((response) => console.log(response))
+      .catch((err) => console.error(err));
   }, []);
 
-  return <div className="App">{nowPlaying ? <Movies data={nowPlaying} genreReference={genreReference} /> : "loading"}</div>;
+  return (
+    <>
+      <div className="App">
+        <div>movyeo</div>
+        {nowPlaying ? <Movies data={nowPlaying} genreReference={genreReference} /> : "loading"}
+      </div>
+    </>
+  );
 }
 
 export default App;

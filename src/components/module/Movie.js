@@ -11,6 +11,23 @@ function getGenres(genres, genreReference) {
   return genreList.join(", ") + ".";
 }
 
+function Trailer(key) {
+  return (
+    <iframe
+      width="100%"
+      aspectRatio={1.5}
+      src={`https://www.youtube.com/embed/${key}`}
+      title="Trailer"
+      showinfo={0}
+      controls={0}
+      autohide={1}
+      frameBorder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowFullScreen
+    ></iframe>
+  );
+}
+
 function Movie({
   title = "",
   poster = "",
@@ -34,6 +51,7 @@ function Movie({
         <div className="popularity">{popularity}</div>
         <div className="votes">{`${parseFloat(voteAverage).toFixed(1)} of 10 (${voteCount})`}</div>
         <div className="genres">{getGenres(genres, genreReference)}</div>
+        <Trailer key={`LEjhY15eCx0`} />
       </div>
     </div>
   );
