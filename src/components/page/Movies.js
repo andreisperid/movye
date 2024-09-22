@@ -1,6 +1,9 @@
 import Movie from "../module/Movie";
 
 function Movies({ data, genreReference, theMovieDBOptions }) {
+  const userLocale = new Intl.NumberFormat().resolvedOptions().locale;
+  console.log(userLocale);
+
   const movies = data.results.map((item, key) => (
     <Movie
       key={key}
@@ -14,6 +17,7 @@ function Movies({ data, genreReference, theMovieDBOptions }) {
       genreReference={genreReference}
       theMovieDBOptions={theMovieDBOptions}
       id={item.id}
+      userLocale={userLocale}
     />
   ));
 

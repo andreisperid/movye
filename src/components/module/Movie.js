@@ -41,21 +41,21 @@ function Movie({
   title = "",
   poster = "",
   description = "",
-  certification = "",
   release = "",
-  popularity = "",
   voteAverage = "",
   voteCount = "",
   id = 0,
   genres,
   genreReference,
   theMovieDBOptions = {},
+  userLocale = "",
 }) {
   const [releaseDate, setReleaseDate] = useState();
   const [detailsActive, setDetailsActive] = useState(false);
   const [trailerId, setTrailerId] = useState("");
   const [runtime, setRuntime] = useState("");
   const [country, setCountry] = useState("");
+  const [certification, setCertification] = useState("");
 
   useEffect(() => {
     const options = {
@@ -64,13 +64,37 @@ function Movie({
       day: "numeric",
     };
 
-    // get extra details from this movie
+    // get extra details
     fetch(`https://api.themoviedb.org/3/movie/${id}language=en-US`, theMovieDBOptions)
       .then((response) => response.json())
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         setRuntime(response.runtime);
         setCountry(response.origin_country);
+      })
+      .catch((err) => console.error(err));
+
+    // get rating certification
+    fetch(`https://api.themoviedb.org/3/movie/${id}/release_dates`, theMovieDBOptions)
+      .then((response) => response.json())
+      .then((response) => {
+        // console.log(response.results);
+        for (const r of response.results) {
+          if (r.iso_3166_1 == userLocale.slice(-2))
+            // console.log(r.release_dates)
+            for (const c of r.release_dates) {
+              if (c.type == "3") {
+                setCertification(c.certification);
+                return;
+              }
+              // in case no movie theater rating is available, try picking a Digital, Physical or TV one‰
+              if (c.type > 3) {
+                setCertification(c.certification);
+                return;
+              }
+            }
+        }
+        return "";
       })
       .catch((err) => console.error(err));
 
@@ -142,9 +166,11 @@ function Movie({
               {` ${parseFloat(voteAverage).toFixed(1)} of 10 (${voteCount})`}
             </div>
             <div className="description" lang="en">
-              {description.split(". ").map((item, key) => (
+              {/* TODO: smart paragraph breaking, below doesn't work for short sentences */}
+              {/* {description.split(". ").map((item, key) => (
                 <p key={key}>{(item + ".").replace("..", ".")}</p>
-              ))}
+              ))} */}
+              <p>{description}</p>
             </div>
             <div className="extra-information">
               <div className="two-column">
