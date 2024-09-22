@@ -1,14 +1,23 @@
 .App {
+  position: absolute;
   text-align: center;
   font-family: "Instrument Sans";
   user-select: none;
+  font-size: 15px;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background-image: linear-gradient(0deg, rgb(17, 15, 20) 0%, rgb(5, 0, 20) 100%);
+  /* background-color: red; */
 }
 
 .App-link {
   color: #61dafb;
 }
 
-.scroll-area {
+::-webkit-scrollbar {
+  display: none;
 }
 
 @font-face {
@@ -41,35 +50,30 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 100vh;
+  bottom: 0;
   background-image: url("../public/image/noise.png");
   background-size: 20%;
   background-repeat: repeat;
   mix-blend-mode: overlay;
-  opacity: 0.15;
+  opacity: 0.2;
   z-index: 9999;
   pointer-events: none;
 }
 
 body {
-  background-image: linear-gradient(0deg, rgb(22, 22, 22) 0%, rgb(0, 0, 0) 100%);
   color: white;
   overscroll-behavior: none;
   overflow-y: hidden;
-  height: 100vh;
-}
-
-.scroll-area {
-  margin-top: 80px;
 }
 
 .movies {
   display: flex;
   flex-direction: row;
-  /* width: auto; */
-  padding-left: calc(20px * 2);
-  padding-right: calc(20px * 2);
   overflow: auto;
+  padding-top: 70px;
+  padding-left: calc(3vw * 2);
+  padding-right: calc(3vw * 2);
+  height: calc(100% - 70px - 70px);
   scroll-snap-type: both mandatory;
   overscroll-behavior-x: contain;
 }
@@ -78,59 +82,118 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
   border-radius: 10px;
-  height: 100%;
-  border-radius: 50px;
-  margin: 4vw;
-  margin-top: 0;
+  margin: 3vw;
+  margin-bottom: 7vw;
+  /* margin-top: 15px; */
+  filter: drop-shadow(5px 15px 5px rgba(1, 1, 1, 0.5));
 }
 
 .movie {
+  width: 80vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   height: 100%;
-  backdrop-filter: blur(20px);
-  background-color: rgba(50, 50, 50, 0.75);
+  flex-grow: 1;
+  backdrop-filter: blur(30px);
+  background-color: rgba(18, 13, 25, 0.7);
   border-radius: 10px;
+  border: 0.5px solid rgba(255, 255, 255, 0.2);
   scroll-snap-align: center;
+  padding: 3px;
+}
+
+.more-information {
+  position: relative;
+  width: 50px;
+  height: 25px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  /* background-color: white; */
 }
 
 .poster {
-  width: 75vw;
+  bottom: 0;
+  width: 100%;
   aspect-ratio: 0.66;
   background-size: cover;
-  border-radius: 10px 10px 0 0;
+  border-radius: 7px 7px 7px 7px;
+}
+
+.collapsible {
+  position: relative;
+  /* bottom: 3px; */
+  width: 80vw;
+  height: 100%;
+  overflow: hidden;
+  transition: 2s;
+  transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
+  border-radius: 7px 7px 7px 7px;
 }
 
 .title {
-  font-size: 1.5em;
-  padding: 0.25em;
-  /* padding-top: 0; */
+  font-size: 1.2em;
+  font-weight: bold;
+  padding: 0.4em;
+  padding-bottom: 0;
 }
 
 .description {
-  padding: 1em;
+  padding: 0.75em;
   padding-top: 0;
+  /* max-height: 5em; */
+  flex-grow: 1;
+  overflow-y: hidden;
+  text-align: left;
+  word-wrap: normal;
+}
+
+.details-inactive {
+  height: calc(100% - 80vw / 0.66);
+  mask: linear-gradient(0deg, transparent 10%, black 100%);
+}
+
+.details-active {
+  height: 100%;
+}
+
+.genres {
+  font-size: 0.75em;
+  padding: 0.5em;
 }
 
 .button {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.5);
   padding: 0.5em;
-  border-radius: 1em;
+  border-radius: 10px;
   height: 2em;
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-grow: 0;
+}
+
+.call-to-action {
+  position: absolute;
+  bottom: 6vw;
+  width: calc(80vw - 10px);
+  right: 0;
+  left: 0;
+  margin: auto;
+  z-index: 999;
 }
 
 .logo {
-  font-size: 50px;
+  font-size: 40px;
   letter-spacing: -0.05em;
   font-weight: bold;
-  /* margin: 0.2em; */
 }
 
 .header {
   position: fixed;
-  height: 80px;
-  padding-top: 0.25em;
+  padding-top: 1em;
   top: 0;
   left: 0;
   right: 0;
@@ -140,10 +203,11 @@ body {
 }
 
 .blind {
-  width: 15vw;
+  width: 10vw;
   background-color: red;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.8);
   backdrop-filter: blur(3px);
+  mix-blend-mode: overlay;
   z-index: 99;
 }
 
@@ -152,7 +216,7 @@ body {
   left: -1px;
   top: -1px;
   bottom: -1px;
-  -webkit-mask: linear-gradient(270deg, transparent 0%, black 90%);
+  mask: linear-gradient(270deg, transparent 0%, black 90%);
 }
 
 .right {
@@ -160,7 +224,7 @@ body {
   right: -1px;
   top: -1px;
   bottom: -1px;
-  -webkit-mask: linear-gradient(90deg, transparent 0%, black 90%);
+  mask: linear-gradient(90deg, transparent 0%, black 90%);
 }
 
 .loading {
@@ -169,4 +233,9 @@ body {
   right: 0;
   left: 0;
   bottom: 0;
+}
+
+.two-column {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }

@@ -4,7 +4,7 @@ function Movies({ data, genreReference }) {
   const movies = data.results.map((item, key) => (
     <Movie
       key={key}
-      title={item.original_title}
+      title={item.title}
       description={item.overview}
       poster={item.poster_path}
       release={item.release_date}
