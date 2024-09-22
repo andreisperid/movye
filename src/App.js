@@ -14,7 +14,6 @@ const theMovieDBOptions = {
 function App() {
   const [nowPlaying, setNowPlaying] = useState();
   const [genreReference, setGenresReference] = useState();
-  const [certificationReference, setCertificationReference] = useState();
 
   useEffect(() => {
     // get films
@@ -36,11 +35,6 @@ function App() {
       })
       .catch((err) => console.error(err));
 
-    // get youtube trailer IDs
-    fetch("https://api.themoviedb.org/3/movie/1022789/videos?language=en-US", theMovieDBOptions)
-      .then((response) => response.json())
-      .then((response) => console.log(response))
-      .catch((err) => console.error(err));
   }, []);
 
   return (
@@ -56,7 +50,7 @@ function App() {
         </div>
         {nowPlaying ? (
           <>
-            <Movies data={nowPlaying} genreReference={genreReference} />
+            <Movies data={nowPlaying} genreReference={genreReference} theMovieDBOptions={theMovieDBOptions} />
             <div
               className="button call-to-action"
               onClick={() =>

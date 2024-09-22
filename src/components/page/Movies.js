@@ -1,6 +1,6 @@
 import Movie from "../module/Movie";
 
-function Movies({ data, genreReference }) {
+function Movies({ data, genreReference, theMovieDBOptions }) {
   const movies = data.results.map((item, key) => (
     <Movie
       key={key}
@@ -12,6 +12,8 @@ function Movies({ data, genreReference }) {
       voteCount={item.vote_count}
       genres={item.genre_ids}
       genreReference={genreReference}
+      theMovieDBOptions={theMovieDBOptions}
+      id={item.id}
     />
   ));
 
