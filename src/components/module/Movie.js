@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
 
-import { MaterialSymbolsLightStarOutlineRounded, MaterialSymbolsLightCalendarMonthOutline } from "./icons.js";
+import {
+  MaterialSymbolsLightStarOutlineRounded,
+  MaterialSymbolsLightCalendarMonthOutline,
+  MaterialSymbolsLightRocketLaunchOutline,
+} from "./icons.js";
 
 function getGenres(genres, genreReference) {
   let genreList = [];
@@ -37,7 +41,7 @@ function Movie({
   title = "",
   poster = "",
   description = "",
-  rated = "",
+  certification = "",
   release = "",
   popularity = "",
   voteAverage = "",
@@ -50,6 +54,8 @@ function Movie({
   const [releaseDate, setReleaseDate] = useState();
   const [detailsActive, setDetailsActive] = useState(false);
   const [trailerId, setTrailerId] = useState("");
+  const [runtime, setRuntime] = useState("");
+  const [country, setCountry] = useState("");
 
   useEffect(() => {
     const options = {
@@ -58,11 +64,21 @@ function Movie({
       day: "numeric",
     };
 
+    // get extra details from this movie
+    fetch(`https://api.themoviedb.org/3/movie/${id}language=en-US`, theMovieDBOptions)
+      .then((response) => response.json())
+      .then((response) => {
+        console.log(response);
+        setRuntime(response.runtime);
+        setCountry(response.origin_country);
+      })
+      .catch((err) => console.error(err));
+
     // get first youtube official trailer based on ID, then fallback to less ideal video categories
     fetch(`https://api.themoviedb.org/3/movie/${id}/videos?language=en-US`, theMovieDBOptions)
       .then((response) => response.json())
       .then((response) => {
-        console.log(title, response.results);
+        // console.log(title, response.results);
         // prioritize videos that starts with ideal match, then broaden
         for (const r of response.results) {
           if (r.name.startsWith("Official Trailer")) {
@@ -72,28 +88,28 @@ function Movie({
         }
         for (const r of response.results) {
           if (r.name.includes("Official Trailer")) {
-            console.log(r.name);
+            // console.log(r.name);
             setTrailerId(r.key);
             return;
           }
         }
         for (const r of response.results) {
           if (r.name.startsWith("Trailer")) {
-            console.log(r.name);
+            // console.log(r.name);
             setTrailerId(r.key);
             return;
           }
         }
         for (const r of response.results) {
           if (r.name.includes("Trailer")) {
-            console.log(r.name);
+            // console.log(r.name);
             setTrailerId(r.key);
             return;
           }
         }
         for (const r of response.results) {
           if (r.name.includes("Clip")) {
-            console.log(r.name);
+            // console.log(r.name);
             setTrailerId(r.key);
             return;
           }
@@ -104,7 +120,7 @@ function Movie({
       .catch((err) => console.error(err));
 
     setReleaseDate(new Date(release).toLocaleDateString("en-US", options));
-  });
+  }, []);
 
   return (
     <>
@@ -120,38 +136,45 @@ function Movie({
             }}
           >
             <div className="title">{title}</div>
-            <div className="popularity">{popularity}</div>
-            <div className="rated">{rated}</div>
-            <div className="genres">{getGenres(genres, genreReference).replace(".", "")}</div>
+            <div className="genres">{getGenres(genres, genreReference).replace(".", "")}</div>{" "}
+            <div className="votes">
+              <MaterialSymbolsLightStarOutlineRounded />
+              {` ${parseFloat(voteAverage).toFixed(1)} of 10 (${voteCount})`}
+            </div>
             <div className="description" lang="en">
-              {description.split(". ").map((item) => (
-                <p>{item}.</p>
+              {description.split(". ").map((item, key) => (
+                <p key={key}>{(item + ".").replace("..", ".")}</p>
               ))}
             </div>
-            <div className="two-column">
-              <div className="release">
-                <MaterialSymbolsLightCalendarMonthOutline />
-                {` ${releaseDate}`}
+            <div className="extra-information">
+              <div className="two-column">
+                <div className="release">
+                  {/* <MaterialSymbolsLightRocketLaunchOutline /> */}
+                  {`Release: ${releaseDate}`}
+                </div>
+                <div className="country">
+                  {/* <MaterialSymbolsLightRocketLaunchOutline /> */}
+                  {country.length > 1 ? "Countries:" : "Country:" + ` ${country}`}
+                </div>
               </div>
-              <div className="votes">
-                <MaterialSymbolsLightStarOutlineRounded />
-                {` ${parseFloat(voteAverage).toFixed(1)} of 10 (${voteCount})`}
+
+              <div className="two-column">
+                {/* <div className="popularity">{popularity}a</div> */}
+                <div className="runtime">{`Runtime: ${runtime} min`}</div>
+                <div className="certification">{`Rated: ${certification}`}</div>
               </div>
             </div>
           </div>
-          
           {trailerId ? <Trailer video={trailerId} /> : null}
-
           <div
             className="collapsible"
             style={{
-              height: detailsActive ? "99px" : "calc( 80vw / 0.66 + 40px)",
+              height: detailsActive ? "69px" : "calc( 80vw / 0.66 + 35px)",
               opacity: detailsActive ? 0.75 : 1,
             }}
           >
             <div className="more-information" onClick={() => setDetailsActive(!detailsActive)}>
-              {detailsActive ? `see poster` : `see details`}
-              {/* {detailsActive ? `▴ poster` : `▾ details`} */}
+              {detailsActive ? `↑ poster` : `↓ details`}
             </div>
             <div
               className="poster"
