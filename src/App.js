@@ -43,9 +43,20 @@ function App() {
 
   return (
     <>
+    <div className="noise"></div>
       <div className="App">
-        <div>movyeo</div>
-        {nowPlaying ? <Movies data={nowPlaying} genreReference={genreReference} /> : "loading"}
+        <div className="left blind"></div>
+        <div className="right blind"></div>
+        <div className="header">
+          <div className="logo">movyeo</div>
+        </div>
+        <div className="scroll-area">
+          {nowPlaying ? (
+            <Movies data={nowPlaying} genreReference={genreReference} />
+          ) : (
+            <div className="loading">loading...</div>
+          )}
+        </div>
       </div>
     </>
   );
