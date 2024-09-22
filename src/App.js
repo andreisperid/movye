@@ -14,6 +14,7 @@ const theMovieDBOptions = {
 function App() {
   const [nowPlaying, setNowPlaying] = useState();
   const [genreReference, setGenresReference] = useState();
+  const [certificationReference, setCertificationReference] = useState();
 
   useEffect(() => {
     // get films
@@ -48,6 +49,8 @@ function App() {
       <div className="App">
         <div className="left blind"></div>
         <div className="right blind"></div>
+        <div className="left blind-secondary"></div>
+        <div className="right blind-secondary"></div>
         <div className="header">
           <div className="logo">movyeo</div>
         </div>
