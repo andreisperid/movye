@@ -56,6 +56,8 @@ function Movie({
   const [runtime, setRuntime] = useState("");
   const [country, setCountry] = useState("");
   const [certification, setCertification] = useState("");
+  const [actors, setActors] = useState("");
+  const [director, setDirector] = useState("");
 
   useEffect(() => {
     const options = {
@@ -95,6 +97,26 @@ function Movie({
             }
         }
         return "";
+      })
+      .catch((err) => console.error(err));
+
+    // get director and main actors
+    fetch(`https://api.themoviedb.org/3/movie/${id}/credits?language=en-US`, theMovieDBOptions)
+      .then((response) => response.json())
+      .then((response) => {
+        // console.log(response)
+        for (const r of response.crew) {
+          if (r.job == "Director") {
+            console.log(r.name);
+            setDirector(r.name);
+          }
+        }
+        const topThreeActors = [];
+        for (let i = 0; i < 3; i++) {
+          topThreeActors.push(response.cast[i].name);
+        }
+        setActors(topThreeActors);
+        console.log(actors);
       })
       .catch((err) => console.error(err));
 
@@ -189,9 +211,12 @@ function Movie({
                 <div className="runtime">{`Runtime: ${runtime} min`}</div>
                 <div className="certification">{`Rated: ${certification}`}</div>
               </div>
+
+              <div className="runtime">{`Director: ${director}`}</div>
+              <div className="certification">{`Cast: ${actors.toString().replaceAll(",", ", ")}`}</div>
             </div>
           </div>
-          {trailerId ? <Trailer video={trailerId} /> : null}
+          {/* {trailerId ? <Trailer video={trailerId} /> : null} */}
           <div
             className="collapsible"
             style={{
