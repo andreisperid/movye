@@ -24,7 +24,7 @@ function Trailer({ video }) {
     <iframe
       className="trailer"
       // width="100%"
-      src={`https://www.youtube.com/embed/${video}`}
+      // src={`https://www.youtube.com/embed/${video}`}
       title=""
       color="white"
       // controls="0"
@@ -107,16 +107,16 @@ function Movie({
         // console.log(response)
         for (const r of response.crew) {
           if (r.job == "Director") {
-            console.log(r.name);
+            // console.log(r.name);
             setDirector(r.name);
           }
         }
-        const topThreeActors = [];
+        const topActors = [];
         for (let i = 0; i < 3; i++) {
-          topThreeActors.push(response.cast[i].name);
+          topActors.push(response.cast[i].name);
         }
-        setActors(topThreeActors);
-        console.log(actors);
+        setActors(topActors);
+        // console.log(actors);
       })
       .catch((err) => console.error(err));
 
@@ -195,28 +195,41 @@ function Movie({
               <p>{description}</p>
             </div>
             <div className="extra-information">
-              <div className="two-column">
-                <div className="release">
-                  {/* <MaterialSymbolsLightRocketLaunchOutline /> */}
-                  {`Release: ${releaseDate}`}
-                </div>
+              <div className="three-column">
+                {/* <div className="popularity">{popularity}a</div> */}
                 <div className="country">
                   {/* <MaterialSymbolsLightRocketLaunchOutline /> */}
-                  {country.length > 1 ? "Countries:" : "Country:" + ` ${country}`}
+                  <span className="label">Country</span>
+                  {` ${country}`}
+                </div>
+                <div className="runtime">
+                  <span className="label">Runtime</span>
+                  {` ${runtime} min`}
+                </div>
+                <div className="certification">
+                  <span className="label">Rated</span>
+                  {` ${certification ? certification : "-"}`}
                 </div>
               </div>
 
-              <div className="two-column">
-                {/* <div className="popularity">{popularity}a</div> */}
-                <div className="runtime">{`Runtime: ${runtime} min`}</div>
-                <div className="certification">{`Rated: ${certification}`}</div>
+              <div className="one-column">
+                <div className="item release">
+                  {/* <MaterialSymbolsLightRocketLaunchOutline /> */}
+                  <span className="label">Release</span>
+                  {` ${releaseDate}`}
+                </div>
+                <div className="item runtime">
+                  <span className="label">Director</span>
+                  {` ${director}`}
+                </div>
+                <div className="item certification">
+                  <span className="label">Cast</span>
+                  {` ${actors.toString().replaceAll(",", ", ")}`}
+                </div>
               </div>
-
-              <div className="runtime">{`Director: ${director}`}</div>
-              <div className="certification">{`Cast: ${actors.toString().replaceAll(",", ", ")}`}</div>
             </div>
           </div>
-          {/* {trailerId ? <Trailer video={trailerId} /> : null} */}
+          {trailerId ? <Trailer video={trailerId} /> : null}
           <div
             className="collapsible"
             style={{
