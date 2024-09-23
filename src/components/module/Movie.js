@@ -207,7 +207,7 @@ function Movie({
             }}
           >
             <div className="title">{title}</div>
-            <div className="genres">{getGenres(genres, genreReference).replace(".", "")}</div>{" "}
+            <div className="genres">{getGenres(genres, genreReference).replace(".", "")}</div>
             <div className="votes">
               <MaterialSymbolsLightStarOutlineRounded />
               {` ${parseFloat(voteAverage).toFixed(1)} of 10 (${voteCount})`}

@@ -3,13 +3,15 @@ import { MaterialSymbolsLightKidStarOutline } from "../scripts/icons.js";
 import { MaterialSymbolsLightChatBubbleRounded } from "../scripts/icons.js";
 import prompt from "../scripts/prompt.js";
 
+const defaultMessage = `Hey, what kind of films are you looking for?`;
+
 function Assistant({ prePrompt, openAIOptions }) {
   const [assistant, setAssistant] = useState();
   const [userPrompt, setUserPrompt] = useState();
   const [finalPrompt, setFinalPrompt] = useState();
   const [awaitingResponse, setAwaitingResponse] = useState();
   const [result, setResult] = useState();
-  const [botText, setBotText] = useState(`Hey, what kind of films are you looking for?`);
+  const [botText, setBotText] = useState(defaultMessage);
 
   useEffect(() => {
     async function getResult() {
@@ -36,6 +38,11 @@ function Assistant({ prePrompt, openAIOptions }) {
     }
   }
 
+  const toggleAssistant = () => {
+    setAssistant(!assistant);
+    if (!assistant) setBotText(defaultMessage);
+  };
+
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
       handleSubmit();
@@ -53,7 +60,7 @@ function Assistant({ prePrompt, openAIOptions }) {
       <div className="assistant" style={{ bottom: assistant ? "calc(200px + 1.75em/2)" : 0 }}>
         <div
           className="assistant-button"
-          onClick={() => setAssistant(!assistant)}
+          onClick={toggleAssistant}
           style={{ bottom: assistant ? "calc(-1.75em/2)" : "calc(1.75em /2)" }}
         >
           {assistant ? `X` : `?`}
@@ -61,7 +68,7 @@ function Assistant({ prePrompt, openAIOptions }) {
 
         <div className="assistant-dialog">
           <div className="assistant-chat">
-            {assistant ? <div className="assistant-background" onClick={() => setAssistant(!assistant)}></div> : null}
+            {assistant ? <div className="assistant-background" onClick={toggleAssistant}></div> : null}
             <div className="prompt-response">{awaitingResponse ? `...` : botText}</div>
             <div className="prompt-user">
               <input
