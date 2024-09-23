@@ -32,7 +32,6 @@ function App() {
     fetch("https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1", theMovieDBOptions)
       .then((response) => response.json())
       .then((response) => {
-        // console.log(response);
         setAnnouncements(response);
         setPrePrompt(prompt.filmFragment(response, openAIOptions));
       })

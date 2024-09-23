@@ -1,6 +1,4 @@
-import { useEffect, useState, useRef } from "react";
-import { MaterialSymbolsLightKidStarOutline } from "../scripts/icons.js";
-import { MaterialSymbolsLightChatBubbleRounded } from "../scripts/icons.js";
+import { useEffect, useState } from "react";
 import prompt from "../scripts/prompt.js";
 
 const defaultMessage = `Hey, what kind of films are you looking for?`;
@@ -18,7 +16,6 @@ function Assistant({ prePrompt, openAIOptions }) {
       const received = await prompt.requester(finalPrompt, openAIOptions);
       const processed = received.split("&");
       setBotText(processed[2]);
-      // console.log(processed);
       setResult(processed);
       setAwaitingResponse(false);
       scrollDiv(`movie${processed[0]}`);

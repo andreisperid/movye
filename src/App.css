@@ -12,7 +12,6 @@
   opacity: 0;
   animation-duration: 1s;
   animation-name: fade-in;
-  /* animation-timing-function: cubic-bezier(0.445, 0.05, 0.55, 0.95); */
   animation-iteration-count: 1;
   animation-fill-mode: forwards;
 }
@@ -33,7 +32,6 @@ p {
   margin: 0.5em;
   margin-left: 0;
   margin-right: 0;
-
   -webkit-hyphens: auto;
   -moz-hyphens: auto;
   -ms-hyphens: auto;
@@ -114,6 +112,7 @@ body {
   height: 100%;
   flex-grow: 1;
   backdrop-filter: blur(50px);
+  -webkit-backdrop-filter: blur(50px);
   background-color: rgba(18, 13, 25, 0.6);
   border-radius: 10px;
   border: 0.5px solid rgba(255, 255, 255, 0.2);
@@ -179,15 +178,15 @@ body {
   text-align: justify;
 }
 
-.details {
-  transition: 1s;
-  transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
-}
-
 .genres,
 .votes {
   font-size: 0.85em;
   padding: 0.25em;
+}
+
+.details {
+  transition: 1s;
+  transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
 }
 
 .trailer {
@@ -234,6 +233,7 @@ body {
   justify-content: center;
   align-items: center;
   backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
   border: 0.5px solid rgba(10, 4, 20, 1);
   outline: 1px solid rgba(151, 146, 156, 0.3);
   background: linear-gradient(3deg, rgb(11, 7, 16) 0%, rgb(30, 30, 30) 100%);
@@ -276,6 +276,7 @@ body {
   right: 0;
   background: rgba(34, 34, 34, 0.25);
   backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-width: 1px 0 0 0;
   animation-duration: 5s;
@@ -405,6 +406,7 @@ body {
   width: 10vw;
   background-color: rgba(0, 0, 0, 0.8);
   backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
   mix-blend-mode: overlay;
   z-index: 99;
 }
@@ -413,6 +415,7 @@ body {
   width: 15vw;
   background-color: rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
   mix-blend-mode: overlay;
   z-index: 99;
 }

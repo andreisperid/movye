@@ -1,10 +1,9 @@
 import OpenAI from "openai";
 
 function filmFragment(data) {
-  const results = data.results;
-
   let promptFragment = `Below a list with an index, a title and an overview for a series of movies.\n`;
-
+  
+  const results = data.results;
   for (let i = 0; i < results.length; i++) {
     promptFragment = promptFragment + `${i}, ${results[i].title}, ${results[i].overview}\n`;
   }

@@ -78,7 +78,6 @@ function Movie({
     fetch(`https://api.themoviedb.org/3/movie/${id}language=en-US`, theMovieDBOptions)
       .then((response) => response.json())
       .then((response) => {
-        // console.log(response);
         setRuntime(response.runtime);
         setCountry(response.origin_country);
       })
@@ -88,10 +87,8 @@ function Movie({
     fetch(`https://api.themoviedb.org/3/movie/${id}/release_dates`, theMovieDBOptions)
       .then((response) => response.json())
       .then((response) => {
-        // console.log(response.results);
         for (const r of response.results) {
           if (r.iso_3166_1 == userLocale.slice(-2))
-            // console.log(r.release_dates)
             for (const c of r.release_dates) {
               if (c.type == "3") {
                 setCertification(c.certification);
@@ -129,6 +126,7 @@ function Movie({
     fetch(`https://api.themoviedb.org/3/movie/${id}/videos?language=en-US`, theMovieDBOptions)
       .then((response) => response.json())
       .then((response) => {
+
         // prioritize videos that starts with ideal match, then broaden
         for (const r of response.results) {
           if (r.name.startsWith("Official Trailer")) {
@@ -160,6 +158,7 @@ function Movie({
             return;
           }
         }
+
         // extreme fallback in case nothing better is found
         setTrailerId(response.results[0].key);
       })
