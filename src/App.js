@@ -1,13 +1,12 @@
 import "./App.css";
 import { useEffect, useState } from "react";
-import prompt from "./components/module/prompt";
+import prompt from "./components/scripts/prompt";
 import Movies from "./components/page/Movies";
 import CallToActionButton from "./components/module/CallToActionButton";
 
 // TODO: create backend script to obfuscate keys
 import keys from "./keys/keys";
-import AssistantButton from "./components/module/AssistantButton";
-import AssistantDialog from "./components/module/AssistantDialog";
+import Assistant from "./components/module/Assistant";
 
 const theMovieDBOptions = {
   method: "GET",
@@ -27,7 +26,6 @@ function App() {
   const [genreReference, setGenresReference] = useState();
   const [currentSelection, setCurrentSelection] = useState(0);
   const [prePrompt, setPrePrompt] = useState();
-  const [postPrompt, setPostPrompt] = useState();
 
   useEffect(() => {
     // get films
@@ -36,7 +34,7 @@ function App() {
       .then((response) => {
         // console.log(response);
         setAnnouncements(response);
-        setPrePrompt(prompt.filmComposer(response, openAIOptions));
+        setPrePrompt(prompt.filmFragment(response, openAIOptions));
       })
       .catch((err) => console.error(err));
 
@@ -59,6 +57,7 @@ function App() {
         <div className="right blind"></div>
         <div className="left blind-secondary"></div>
         <div className="right blind-secondary"></div>
+        <Assistant prePrompt={prePrompt} openAIOptions={openAIOptions} />
         <div className="header">
           <div className="logo">movyeo</div>
         </div>

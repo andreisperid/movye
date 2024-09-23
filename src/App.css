@@ -8,7 +8,7 @@
   right: 0;
   left: 0;
   bottom: 0;
-  background-image: linear-gradient(0deg, rgb(17, 15, 19) 0%, rgb(50, 43, 61) 5%, rgb(5, 4, 14) 80%, rgb(0, 0, 0) 100%);
+  background: radial-gradient(ellipse at bottom, rgb(22, 14, 52), black);
 }
 
 .App-link {
@@ -81,8 +81,8 @@ body {
   flex-direction: row;
   overflow: auto;
   padding-top: 70px;
-  padding-left: calc(3vw * 2);
-  padding-right: calc(3vw * 2);
+  padding-left: calc(5vw * 2);
+  padding-right: calc(5vw * 2);
   height: calc(100% - 70px - 75px);
   scroll-snap-type: both mandatory;
 }
@@ -96,13 +96,13 @@ body {
 }
 
 .movie {
-  width: 80vw;
+  width: 75vw;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
   flex-grow: 1;
-  backdrop-filter: blur(30px);
+  backdrop-filter: blur(50px);
   background-color: rgba(18, 13, 25, 0.6);
   border-radius: 10px;
   border: 0.5px solid rgba(255, 255, 255, 0.2);
@@ -145,8 +145,8 @@ body {
 .collapsible {
   position: absolute;
   bottom: 3px;
-  width: 80vw;
-  height: calc(80vw / 0.66 + 40px);
+  width: 75vw;
+  height: calc(75vw / 0.66 + 40px);
   overflow: hidden;
   transition: 1s;
   transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
@@ -197,11 +197,11 @@ body {
 
 .call-to-action-background {
   position: absolute;
-  width: calc(80vw - 8px);
+  width: calc(50vw);
   right: 0;
   left: 0;
   margin: auto;
-  z-index: 999;
+  z-index: 500;
   filter: drop-shadow(5px 0px 10px rgba(83, 80, 114, 0.75));
   text-shadow: rgba(255, 255, 255, 0.62) 0px 0px 10px;
 }
@@ -218,8 +218,126 @@ body {
   align-items: center;
   backdrop-filter: blur(3px);
   border: 0.5px solid rgba(10, 4, 20, 1);
-  outline: 3px solid rgba(151, 146, 156, 0.3);
-  background: linear-gradient(3deg, rgba(0, 0, 0, 0.75) 0%, rgba(82, 82, 82, 0.75) 100%);
+  outline: 1px solid rgba(151, 146, 156, 0.3);
+  background: linear-gradient(3deg, rgb(11, 7, 16) 0%, rgb(30, 30, 30) 100%);
+}
+
+.assistant {
+  position: absolute;
+  right: 0;
+  left: 0;
+  z-index: 1000;
+  transition: 0.2s;
+}
+
+.assistant-button {
+  position: absolute;
+  height: 1.75em;
+  width: 1.75em;
+  right: calc(1.75em / 2);
+  bottom: calc(1.75em / 2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(3deg, rgb(11, 7, 16) 0%, rgb(30, 30, 30) 100%);
+  border-radius: 50%;
+  border: 0.5px solid rgba(10, 4, 20, 1);
+  outline: 1px solid rgba(151, 146, 156, 0.3);
+  font-size: 2em;
+  animation-duration: 5s;
+  animation-name: breathe;
+  animation-timing-function: cubic-bezier(0.445, 0.05, 0.55, 0.95);
+  transition: 0.2s;
+  z-index: 1001;
+  animation-iteration-count: infinite;
+}
+
+.assistant-dialog {
+  position: absolute;
+  height: 30vh;
+  left: 0;
+  right: 0;
+  bottom: -30vh;
+  background: rgba(34, 34, 34, 0.25);
+  backdrop-filter: blur(40px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-width: 1px 0 0 0;
+}
+
+.assistant-background {
+  position: absolute;
+  height: 100vh;
+  bottom: calc(30vh + 1px);
+  right: 0;
+  left: 0;
+  background-color: black;
+  opacity: 0.75;
+}
+
+.assistant-chat {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  text-align: left;
+  padding: 2em;
+  padding-top: 2.5em;
+  padding-bottom: 2.5em;
+}
+
+.prompt-user {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.prompt-input {
+  background: none;
+  outline: none;
+  flex-grow: 1;
+  color: white;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  padding: 0.75em;
+  font-size: 15px;
+}
+
+.prompt-send {
+  padding: 0.5em;
+  width: 2.5em;
+  border-radius: 10px;
+  margin-left: 0.5em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(3deg, rgb(11, 7, 16) 0%, rgb(30, 30, 30) 100%);
+  border: 0.5px solid rgba(10, 4, 20, 1);
+  outline: 1px solid rgba(151, 146, 156, 0.3);
+  color: rgba(255, 255, 255, 0.75);
+  font-weight: 800;
+}
+
+.prompt-response {
+  /* padding-right: 5em; */
+}
+
+@keyframes breathe {
+  0% {
+    filter: drop-shadow(0px 0px 5px rgba(255, 255, 255, 0.5));
+  }
+  50% {
+    filter: drop-shadow(0px 0px 1px rgba(255, 255, 255, 0.25));
+  }
+  100% {
+    filter: drop-shadow(0px 0px 5px rgba(255, 255, 255, 0.5));
+  }
 }
 
 .logo {

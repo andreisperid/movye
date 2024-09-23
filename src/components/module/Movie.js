@@ -5,7 +5,7 @@ import {
   MaterialSymbolsLightStarOutlineRounded,
   MaterialSymbolsLightCalendarMonthOutline,
   MaterialSymbolsLightRocketLaunchOutline,
-} from "./icons.js";
+} from "../scripts/icons.js";
 
 function getGenres(genres, genreReference) {
   let genreList = [];
@@ -51,7 +51,7 @@ function Movie({
   theMovieDBOptions = {},
   userLocale = "",
   setCurrentSelection,
-  index  
+  index,
 }) {
   const [releaseDate, setReleaseDate] = useState();
   const [detailsActive, setDetailsActive] = useState(false);
@@ -69,6 +69,8 @@ function Movie({
   useEffect(() => {
     if (inView) {
       setCurrentSelection(index);
+    } else {
+      setDetailsActive(false);
     }
 
     const options = {
@@ -182,6 +184,7 @@ function Movie({
   return (
     <>
       <div
+        id={`movie${index}`}
         className="movie-background"
         style={{
           backgroundImage: `url(https://image.tmdb.org/t/p/w500${poster})`,
@@ -198,7 +201,7 @@ function Movie({
           <div
             className="details"
             style={{
-              height: detailsActive ? "100%" : "calc(100% - 80vw / 0.66)",
+              height: detailsActive ? "100%" : "calc(100% - 75vw / 0.66)",
               mask: detailsActive
                 ? "linear-gradient(0deg, white 0%, white 100%)"
                 : "linear-gradient(0deg, transparent 15%, black 100%)",
@@ -256,7 +259,7 @@ function Movie({
           <div
             className="collapsible"
             style={{
-              height: detailsActive ? "69px" : "calc( 80vw / 0.66 + 35px)",
+              height: detailsActive ? "69px" : "calc( 75vw / 0.66 + 35px)",
               opacity: detailsActive ? 0.75 : 1,
             }}
           >

@@ -1,6 +1,6 @@
 import OpenAI from "openai";
 
-function filmComposer(data) {
+function filmFragment(data) {
   const results = data.results;
 
   let promptFragment = `Below a list with an index, a title and an overview for a series of movies.\n`;
@@ -8,22 +8,21 @@ function filmComposer(data) {
   for (let i = 0; i < results.length; i++) {
     promptFragment = promptFragment + `${i}, ${results[i].title}, ${results[i].overview}\n`;
   }
-
-  console.log(promptFragment);
   return promptFragment;
 }
 
-function userComposer(userRequest = `What is the best science fiction film`) {
-  let promptFragment = `${userRequest}. Give a short evasive polite rejection in case my request involves mature, unsafe, abusive intentions. Do not apologize, and the answer should have 20 words max and start with a single film suggestion "index, title and :"`;
-
-  console.log(promptFragment);
+function userFragment() {
+  return `I want a movie about `;
 }
 
-async function promptRequester(prompt, openAIOptions) {
+function rulesFragment() {
+  return `. Give a short evasive polite rejection in case my request involves mature, unsafe, abusive intentions. Give a single film suggestion hoping that I'm going to like it, but do not apologize nor mention the previous instruction. The answer should have 20 words max and be in this format: "index&title&suggestion mentioning the movie title"`;
+}
+
+async function requester(prompt, openAIOptions) {
   const openai = new OpenAI(openAIOptions);
 
   if (prompt) {
-    console.log(prompt);
     const completion = await openai.chat.completions.create({
       model: "gpt-4o-mini",
       messages: [
@@ -35,10 +34,8 @@ async function promptRequester(prompt, openAIOptions) {
       ],
     });
 
-    console.log(completion.choices[0].message.content);
-
-    return "result";
+    return completion.choices[0].message.content;
   }
 }
 
-export default { filmComposer, userComposer, promptRequester };
+export default { filmFragment, userFragment, rulesFragment, requester };

@@ -6,7 +6,6 @@ function CallToActionButton({ data, currentSelection }) {
 
   useEffect(() => {
     try {
-      setBackground(data.results[currentSelection].poster_path);
       setSearch(data.results[currentSelection].title.replace(" ", "+").toLowerCase());
     } catch (e) {
       console.log(e);
@@ -16,10 +15,6 @@ function CallToActionButton({ data, currentSelection }) {
   return (
     <div
       className="button call-to-action-background"
-      style={{
-        backgroundColor: "red",
-        backgroundImage: `url(https://image.tmdb.org/t/p/w500${background})`,
-      }}
     >
       <div
         className="call-to-action"
