@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
 
-function CallToAction({ data, currentSelection }) {
+function CallToActionButton({ data, currentSelection }) {
   const [background, setBackground] = useState();
   const [search, setSearch] = useState();
 
   useEffect(() => {
     try {
       setBackground(data.results[currentSelection].poster_path);
-      setSearch(data.results[currentSelection].title.replace(" ", "+").toLowerCase())
-      console.log(background);
+      setSearch(data.results[currentSelection].title.replace(" ", "+").toLowerCase());
     } catch (e) {
       console.log(e);
     }
@@ -24,12 +23,7 @@ function CallToAction({ data, currentSelection }) {
     >
       <div
         className="call-to-action"
-        onClick={() =>
-          window.open(
-            `https://www.google.com/search?q=${search}+movie+theater+showtimes`,
-            "_blank"
-          )
-        }
+        onClick={() => window.open(`https://www.google.com/search?q=${search}+movie+theater+showtimes`, "_blank")}
       >
         See available times nearby
       </div>
@@ -37,4 +31,4 @@ function CallToAction({ data, currentSelection }) {
   );
 }
 
-export default CallToAction;
+export default CallToActionButton;

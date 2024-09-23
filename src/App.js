@@ -1,30 +1,42 @@
 import "./App.css";
 import { useEffect, useState } from "react";
-
-import theMovieDBKey from "./keys/keys";
+import prompt from "./components/module/prompt";
 import Movies from "./components/page/Movies";
-import CallToAction from "./components/module/CallToAction";
+import CallToActionButton from "./components/module/CallToActionButton";
+
+// TODO: create backend script to obfuscate keys
+import keys from "./keys/keys";
+import AssistantButton from "./components/module/AssistantButton";
+import AssistantDialog from "./components/module/AssistantDialog";
 
 const theMovieDBOptions = {
   method: "GET",
   headers: {
     accept: "application/json",
-    Authorization: "Bearer " + theMovieDBKey(),
+    Authorization: "Bearer " + keys.theMovieDBKey(),
   },
+};
+
+const openAIOptions = {
+  apiKey: keys.openAIKey(),
+  dangerouslyAllowBrowser: true,
 };
 
 function App() {
   const [announcements, setAnnouncements] = useState();
   const [genreReference, setGenresReference] = useState();
   const [currentSelection, setCurrentSelection] = useState(0);
+  const [prePrompt, setPrePrompt] = useState();
+  const [postPrompt, setPostPrompt] = useState();
 
   useEffect(() => {
     // get films
     fetch("https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1", theMovieDBOptions)
       .then((response) => response.json())
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         setAnnouncements(response);
+        setPrePrompt(prompt.filmComposer(response, openAIOptions));
       })
       .catch((err) => console.error(err));
 
@@ -58,7 +70,7 @@ function App() {
               theMovieDBOptions={theMovieDBOptions}
               setCurrentSelection={setCurrentSelection}
             />
-            <CallToAction data={announcements} currentSelection={currentSelection} />
+            <CallToActionButton data={announcements} currentSelection={currentSelection} />
           </>
         ) : (
           <div className="loading">loading...</div>
