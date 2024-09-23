@@ -57,7 +57,6 @@ function App() {
         <div className="right blind"></div>
         <div className="left blind-secondary"></div>
         <div className="right blind-secondary"></div>
-        <Assistant prePrompt={prePrompt} openAIOptions={openAIOptions} />
         <div className="header">
           <div className="logo">movyeo</div>
         </div>
@@ -74,6 +73,7 @@ function App() {
         ) : (
           <div className="loading">loading...</div>
         )}
+        <Assistant prePrompt={prePrompt} openAIOptions={openAIOptions} />
       </div>
     </>
   );

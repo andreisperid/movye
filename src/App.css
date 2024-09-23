@@ -1,5 +1,5 @@
 .App {
-  position: absolute;
+  position: fixed;
   text-align: center;
   font-family: "Instrument Sans";
   user-select: none;
@@ -84,7 +84,7 @@ body {
   padding-left: calc(5vw * 2);
   padding-right: calc(5vw * 2);
   height: calc(100% - 70px - 75px);
-  scroll-snap-type: both mandatory;
+  scroll-snap-type: x mandatory;
 }
 
 .movie-background {
@@ -229,7 +229,6 @@ body {
   bottom: 0;
   z-index: 1000;
   transition: 0.2s;
-  bottom: 0;
 }
 
 .assistant-button {
