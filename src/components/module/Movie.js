@@ -61,12 +61,14 @@ function Movie({
   const [certification, setCertification] = useState("");
   const [actors, setActors] = useState("");
   const [director, setDirector] = useState("");
+  const [divId, setDivId] = useState(`movie${index}`)
 
   const { ref, inView } = useInView({
     threshold: 0.75,
   });
 
   useEffect(() => {
+
     if (inView) {
       setCurrentSelection(index);
     } else {
@@ -184,7 +186,7 @@ function Movie({
   return (
     <>
       <div
-        id={`movie${index}`}
+        id={divId}
         className="movie-background"
         style={{
           backgroundImage: `url(https://image.tmdb.org/t/p/w500${poster})`,

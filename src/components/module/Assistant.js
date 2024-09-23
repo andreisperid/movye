@@ -12,24 +12,21 @@ function Assistant({ prePrompt, openAIOptions }) {
   const [botText, setBotText] = useState(`Hey, what kind of films are you looking for?`);
 
   useEffect(() => {
-    // if (assistant) {
-    //   const timer = setTimeout(() => document.getElementById("input-form").focus(), 500);
-    // }
-
     async function getResult() {
       const received = await prompt.requester(finalPrompt, openAIOptions);
       const processed = received.split("&");
       setBotText(processed[2]);
-      console.log(processed);
+      // console.log(processed);
       setResult(processed);
+      setAwaitingResponse(false);
+      scrollDiv(`movie${processed[0]}`);
     }
 
     if (awaitingResponse) {
       console.log("awaiting");
       getResult();
-      setAwaitingResponse(false);
     }
-  }, [userPrompt, finalPrompt, result, assistant]);
+  }, [userPrompt, finalPrompt, result]);
 
   function handleSubmit() {
     if (userPrompt && userPrompt != "") {
@@ -44,6 +41,12 @@ function Assistant({ prePrompt, openAIOptions }) {
       handleSubmit();
     }
   };
+
+  function scrollDiv(id) {
+    document.getElementById(id).scrollIntoView({
+      behavior: "smooth",
+    });
+  }
 
   return (
     <>
