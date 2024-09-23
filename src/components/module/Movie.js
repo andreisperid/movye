@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useInView } from "react-intersection-observer";
 
 import {
   MaterialSymbolsLightStarOutlineRounded,
@@ -19,12 +20,12 @@ function getGenres(genres, genreReference) {
   return genreList.join(", ") + ".";
 }
 
-function Trailer({ video }) {
+function Trailer({ videoKey }) {
   return (
     <iframe
       className="trailer"
       // width="100%"
-      // src={`https://www.youtube.com/embed/${video}`}
+      // src={`https://www.youtube.com/embed/${videoKey}`}
       title=""
       color="white"
       // controls="0"
@@ -49,6 +50,8 @@ function Movie({
   genreReference,
   theMovieDBOptions = {},
   userLocale = "",
+  setCurrentSelection,
+  index  
 }) {
   const [releaseDate, setReleaseDate] = useState();
   const [detailsActive, setDetailsActive] = useState(false);
@@ -59,7 +62,15 @@ function Movie({
   const [actors, setActors] = useState("");
   const [director, setDirector] = useState("");
 
+  const { ref, inView } = useInView({
+    threshold: 0.75,
+  });
+
   useEffect(() => {
+    if (inView) {
+      setCurrentSelection(index);
+    }
+
     const options = {
       year: "numeric",
       month: "short",
@@ -166,12 +177,24 @@ function Movie({
       .catch((err) => console.error(err));
 
     setReleaseDate(new Date(release).toLocaleDateString("en-US", options));
-  }, []);
+  }, [inView]);
 
   return (
     <>
-      <div className="movie-background" style={{ backgroundImage: `url(https://image.tmdb.org/t/p/w500${poster})` }}>
-        <div className="movie">
+      <div
+        className="movie-background"
+        style={{
+          backgroundImage: `url(https://image.tmdb.org/t/p/w500${poster})`,
+          zIndex: inView ? "100" : "unset",
+        }}
+      >
+        <div
+          className="movie"
+          style={{
+            outline: inView ? "2px solid #ffffffff" : "2px solid #ffffff00",
+          }}
+          ref={ref}
+        >
           <div
             className="details"
             style={{
@@ -245,6 +268,7 @@ function Movie({
               style={{
                 backgroundImage: `url(https://image.tmdb.org/t/p/w500${poster})`,
               }}
+              onClick={() => setDetailsActive(!detailsActive)}
             ></div>
           </div>
         </div>

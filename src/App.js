@@ -1,7 +1,9 @@
 import "./App.css";
 import { useEffect, useState } from "react";
+
 import theMovieDBKey from "./keys/keys";
 import Movies from "./components/page/Movies";
+import CallToAction from "./components/module/CallToAction";
 
 const theMovieDBOptions = {
   method: "GET",
@@ -14,6 +16,7 @@ const theMovieDBOptions = {
 function App() {
   const [nowPlaying, setNowPlaying] = useState();
   const [genreReference, setGenresReference] = useState();
+  const [currentSelection, setCurrentSelection] = useState(0);
 
   useEffect(() => {
     // get films
@@ -34,7 +37,6 @@ function App() {
         setGenresReference(genresMap);
       })
       .catch((err) => console.error(err));
-
   }, []);
 
   return (
@@ -50,18 +52,13 @@ function App() {
         </div>
         {nowPlaying ? (
           <>
-            <Movies data={nowPlaying} genreReference={genreReference} theMovieDBOptions={theMovieDBOptions} />
-            <div
-              className="button call-to-action"
-              onClick={() =>
-                window.open(
-                  // `https://www.google.com/search?q=${title.replace(" ", "+").toLowerCase()}+movie+theater+showtimes`,
-                  "_blank"
-                )
-              }
-            >
-              See available times nearby
-            </div>
+            <Movies
+              data={nowPlaying}
+              genreReference={genreReference}
+              theMovieDBOptions={theMovieDBOptions}
+              setCurrentSelection={setCurrentSelection}
+            />
+            <CallToAction data={nowPlaying} currentSelection={currentSelection} />
           </>
         ) : (
           <div className="loading">loading...</div>
