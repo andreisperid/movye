@@ -24,14 +24,12 @@ function Trailer({ videoKey }) {
   return (
     <iframe
       className="trailer"
-      // width="100%"
-      // src={`https://www.youtube.com/embed/${videoKey}`}
-      title=""
+      width="100%"
+      height="100%"
+      src={`https://www.youtube.com/embed/${videoKey}`}
+      title="YouTube video player"
       color="white"
-      // controls="0"
-      iv_load_policy="3"
       frameBorder="0"
-      rel="0"
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
       allowFullScreen
     ></iframe>
@@ -61,14 +59,13 @@ function Movie({
   const [certification, setCertification] = useState("");
   const [actors, setActors] = useState("");
   const [director, setDirector] = useState("");
-  const [divId, setDivId] = useState(`movie${index}`)
+  const [divId, setDivId] = useState(`movie${index}`);
 
   const { ref, inView } = useInView({
     threshold: 0.75,
   });
 
   useEffect(() => {
-
     if (inView) {
       setCurrentSelection(index);
     } else {
@@ -224,9 +221,7 @@ function Movie({
             </div>
             <div className="extra-information">
               <div className="three-column">
-                {/* <div className="popularity">{popularity}a</div> */}
                 <div className="country">
-                  {/* <MaterialSymbolsLightRocketLaunchOutline /> */}
                   <span className="label">Country</span>
                   {` ${country}`}
                 </div>
@@ -242,7 +237,6 @@ function Movie({
 
               <div className="one-column">
                 <div className="item release">
-                  {/* <MaterialSymbolsLightRocketLaunchOutline /> */}
                   <span className="label">Release</span>
                   {` ${releaseDate}`}
                 </div>
@@ -257,12 +251,11 @@ function Movie({
               </div>
             </div>
           </div>
-          {trailerId ? <Trailer video={trailerId} /> : null}
+          {trailerId ? <Trailer videoKey={trailerId} /> : null}
           <div
             className="collapsible"
             style={{
               height: detailsActive ? "69px" : "calc( 75vw / 0.66 + 35px)",
-              opacity: detailsActive ? 0.75 : 1,
             }}
           >
             <div className="more-information" onClick={() => setDetailsActive(!detailsActive)}>
