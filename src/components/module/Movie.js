@@ -1,11 +1,7 @@
 import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 
-import {
-  MaterialSymbolsLightStarOutlineRounded,
-  MaterialSymbolsLightCalendarMonthOutline,
-  MaterialSymbolsLightRocketLaunchOutline,
-} from "../scripts/icons.js";
+import { MaterialSymbolsLightStarOutlineRounded, MaterialSymbolsLightOpenInNewRounded } from "../scripts/icons.js";
 
 function getGenres(genres, genreReference) {
   let genreList = [];
@@ -116,10 +112,8 @@ function Movie({
     fetch(`https://api.themoviedb.org/3/movie/${id}/credits?language=en-US`, theMovieDBOptions)
       .then((response) => response.json())
       .then((response) => {
-        // console.log(response)
         for (const r of response.crew) {
           if (r.job == "Director") {
-            // console.log(r.name);
             setDirector(r.name);
           }
         }
@@ -128,7 +122,6 @@ function Movie({
           topActors.push(response.cast[i].name);
         }
         setActors(topActors);
-        // console.log(actors);
       })
       .catch((err) => console.error(err));
 
@@ -136,7 +129,6 @@ function Movie({
     fetch(`https://api.themoviedb.org/3/movie/${id}/videos?language=en-US`, theMovieDBOptions)
       .then((response) => response.json())
       .then((response) => {
-        // console.log(title, response.results);
         // prioritize videos that starts with ideal match, then broaden
         for (const r of response.results) {
           if (r.name.startsWith("Official Trailer")) {
@@ -146,28 +138,24 @@ function Movie({
         }
         for (const r of response.results) {
           if (r.name.includes("Official Trailer")) {
-            // console.log(r.name);
             setTrailerId(r.key);
             return;
           }
         }
         for (const r of response.results) {
           if (r.name.startsWith("Trailer")) {
-            // console.log(r.name);
             setTrailerId(r.key);
             return;
           }
         }
         for (const r of response.results) {
           if (r.name.includes("Trailer")) {
-            // console.log(r.name);
             setTrailerId(r.key);
             return;
           }
         }
         for (const r of response.results) {
           if (r.name.includes("Clip")) {
-            // console.log(r.name);
             setTrailerId(r.key);
             return;
           }
@@ -249,6 +237,19 @@ function Movie({
                   {` ${actors.toString().replaceAll(",", ", ")}`}
                 </div>
               </div>
+
+              {trailerId && !detailsActive ? (
+                <div className="three-columns">
+                  <div></div>
+                  <div className="trailer-link">
+                    <a href={`https://www.youtube.com/watch?v=${trailerId}`} target="_blank">
+                      Watch trailer
+                    </a>{" "}
+                    <MaterialSymbolsLightOpenInNewRounded />
+                  </div>
+                  <div></div>
+                </div>
+              ) : null}
             </div>
           </div>
           {trailerId && detailsActive ? <Trailer videoKey={trailerId} /> : null}

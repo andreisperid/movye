@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 
+import { MaterialSymbolsLightOpenInNewRounded } from "../scripts/icons.js";
+
 function CallToActionButton({ data, currentSelection }) {
-  const [background, setBackground] = useState();
   const [search, setSearch] = useState();
 
   useEffect(() => {
@@ -13,14 +14,15 @@ function CallToActionButton({ data, currentSelection }) {
   }, [data, currentSelection]);
 
   return (
-    <div
-      className="button call-to-action-background"
-    >
+    <div className="button call-to-action-background">
       <div
         className="call-to-action"
         onClick={() => window.open(`https://www.google.com/search?q=${search}+movie+theater+showtimes`, "_blank")}
       >
-        See available times nearby
+        See available times nearby{" "}
+        <span style={{ paddingLeft: "0.2em" }}>
+          <MaterialSymbolsLightOpenInNewRounded />
+        </span>
       </div>
     </div>
   );

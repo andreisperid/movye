@@ -25,6 +25,10 @@
   display: none;
 }
 
+a {
+  color: white;
+}
+
 p {
   margin: 0.5em;
   margin-left: 0;
@@ -191,6 +195,11 @@ body {
   margin-top: 2em;
   border-radius: 4px;
   filter: drop-shadow(0px 2px 2px rgba(1, 1, 1, 0.25));
+}
+
+.trailer-link {
+  visibility: hidden;
+  padding: 1.25em;
 }
 
 .button {
@@ -472,15 +481,15 @@ svg {
   line-height: 1.25;
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 1024px) {
   .movies {
     padding-left: calc(20vw * 2);
     padding-right: calc(20vw * 2);
   }
   .movie-background {
-    margin: 18vw;
-    margin-top: 3vw;
-    margin-bottom: 3vw;
+    margin: 10vw;
+    margin-top: 2.5vw;
+    margin-bottom: 2.5vw;
   }
   .movie {
     width: 400px;
@@ -500,11 +509,45 @@ svg {
   .call-to-action-background {
     width: 350px;
   }
-  /* .blind {
-    width: 30vw;
+
+  .trailer-link {
+    visibility: visible;
   }
-  
-  .blind-secondary {
-    width: 50vw;
-  } */
+
+  .trailer {
+    visibility: hidden;
+  }
+}
+
+@media only screen and (max-width: 1023px) and (min-width: 680px) {
+  .movies {
+    padding-left: calc(20vw * 2);
+    padding-right: calc(20vw * 2);
+  }
+  .movie-background {
+    margin: 5vw;
+    margin-top: 5vw;
+    margin-bottom: 5vw;
+  }
+  .movie {
+    width: 300px;
+  }
+  .collapsible {
+    width: 300px;
+    height: auto !important;
+  }
+  .details {
+    mask: unset !important;
+  }
+  .more-information {
+    visibility: hidden;
+  }
+
+  .trailer-link {
+    visibility: visible;
+  }
+
+  .trailer {
+    visibility: hidden;
+  }
 }
