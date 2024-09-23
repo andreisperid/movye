@@ -9,6 +9,12 @@
   left: 0;
   bottom: 0;
   background: radial-gradient(ellipse at bottom, rgb(22, 14, 52), black);
+  opacity: 0;
+  animation-duration: 1s;
+  animation-name: fade-in;
+  animation-timing-function: cubic-bezier(0.445, 0.05, 0.55, 0.95);
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
 }
 
 .App-link {
@@ -72,6 +78,7 @@ p {
 
 body {
   color: white;
+  background-color: black;
   overscroll-behavior: none;
   overflow-y: hidden;
 }
@@ -358,6 +365,15 @@ body {
   }
 }
 
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 .logo {
   font-size: 30px;
   letter-spacing: -0.05em;
@@ -413,7 +429,7 @@ body {
   right: 0;
   left: 0;
   bottom: 0;
-  background-image: url('../public/image/loading.gif');
+  background-image: url("../public/image/loading.gif");
   background-repeat: no-repeat;
   background-position: center;
   background-size: 25%;
