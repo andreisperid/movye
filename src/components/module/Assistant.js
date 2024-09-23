@@ -22,7 +22,6 @@ function Assistant({ prePrompt, openAIOptions }) {
     }
 
     if (awaitingResponse) {
-      console.log("awaiting");
       getResult();
     }
   }, [userPrompt, finalPrompt, result]);

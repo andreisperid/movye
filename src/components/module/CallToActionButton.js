@@ -9,7 +9,7 @@ function CallToActionButton({ data, currentSelection }) {
     try {
       setSearch(data.results[currentSelection].title.replace(" ", "+").toLowerCase());
     } catch (e) {
-      console.log(e);
+      // console.log(e);
     }
   }, [data, currentSelection]);
 
