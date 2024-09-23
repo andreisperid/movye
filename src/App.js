@@ -69,11 +69,11 @@ function App() {
               setCurrentSelection={setCurrentSelection}
             />
             <CallToActionButton data={announcements} currentSelection={currentSelection} />
+            <Assistant prePrompt={prePrompt} openAIOptions={openAIOptions} />
           </>
         ) : (
-          <div className="loading">loading...</div>
+          <div className="loading"></div>
         )}
-        <Assistant prePrompt={prePrompt} openAIOptions={openAIOptions} />
       </div>
     </>
   );
