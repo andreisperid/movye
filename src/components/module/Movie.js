@@ -251,7 +251,7 @@ function Movie({
               </div>
             </div>
           </div>
-          {trailerId ? <Trailer videoKey={trailerId} /> : null}
+          {trailerId && detailsActive ? <Trailer videoKey={trailerId} /> : null}
           <div
             className="collapsible"
             style={{
