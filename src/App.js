@@ -14,7 +14,7 @@ const theMovieDBOptions = {
 };
 
 function App() {
-  const [nowPlaying, setNowPlaying] = useState();
+  const [announcements, setAnnouncements] = useState();
   const [genreReference, setGenresReference] = useState();
   const [currentSelection, setCurrentSelection] = useState(0);
 
@@ -24,7 +24,7 @@ function App() {
       .then((response) => response.json())
       .then((response) => {
         console.log(response);
-        setNowPlaying(response);
+        setAnnouncements(response);
       })
       .catch((err) => console.error(err));
 
@@ -41,8 +41,8 @@ function App() {
 
   return (
     <>
-      <div className="noise"></div>
       <div className="App">
+        <div className="noise"></div>
         <div className="left blind"></div>
         <div className="right blind"></div>
         <div className="left blind-secondary"></div>
@@ -50,15 +50,15 @@ function App() {
         <div className="header">
           <div className="logo">movyeo</div>
         </div>
-        {nowPlaying ? (
+        {announcements ? (
           <>
             <Movies
-              data={nowPlaying}
+              data={announcements}
               genreReference={genreReference}
               theMovieDBOptions={theMovieDBOptions}
               setCurrentSelection={setCurrentSelection}
             />
-            <CallToAction data={nowPlaying} currentSelection={currentSelection} />
+            <CallToAction data={announcements} currentSelection={currentSelection} />
           </>
         ) : (
           <div className="loading">loading...</div>
