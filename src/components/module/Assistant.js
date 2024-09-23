@@ -47,7 +47,7 @@ function Assistant({ prePrompt, openAIOptions }) {
 
   return (
     <>
-      <div className="assistant" style={{ bottom: assistant ? "30%" : 0 }}>
+      <div className="assistant" style={{ bottom: assistant ? "calc(200px + 1.75em/2)" : 0 }}>
         <div
           className="assistant-button"
           onClick={() => setAssistant(!assistant)}
