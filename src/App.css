@@ -9,7 +9,6 @@
   left: 0;
   bottom: 0;
   background-image: linear-gradient(0deg, rgb(17, 15, 19) 0%, rgb(50, 43, 61) 5%, rgb(5, 4, 14) 80%, rgb(0, 0, 0) 100%);
-  /* background-color: red; */
 }
 
 .App-link {
@@ -86,7 +85,6 @@ body {
   padding-right: calc(3vw * 2);
   height: calc(100% - 70px - 75px);
   scroll-snap-type: both mandatory;
-  /* overscroll-behavior-x: contain; */
 }
 
 .movie-background {
@@ -168,7 +166,6 @@ body {
   flex-grow: 1;
   overflow-y: hidden;
   text-align: justify;
-  /* min-height: 60%; */
 }
 
 .details {
@@ -223,7 +220,6 @@ body {
   border: 0.5px solid rgba(10, 4, 20, 1);
   outline: 3px solid rgba(151, 146, 156, 0.3);
   background: linear-gradient(3deg, rgba(0, 0, 0, 0.75) 0%, rgba(82, 82, 82, 0.75) 100%);
-  /* mix-blend-mode: overlay; */
 }
 
 .logo {
@@ -245,7 +241,6 @@ body {
 
 .blind {
   width: 10vw;
-  background-color: red;
   background-color: rgba(0, 0, 0, 0.8);
   backdrop-filter: blur(3px);
   mix-blend-mode: overlay;
@@ -254,7 +249,6 @@ body {
 
 .blind-secondary {
   width: 15vw;
-  background-color: red;
   background-color: rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(3px);
   mix-blend-mode: overlay;
@@ -289,8 +283,6 @@ body {
   padding-left: 0.75em;
   padding-right: 0.75em;
   padding-bottom: 0.25em;
-  /* display: grid;
-  grid-template-columns: 1fr 1fr 1fr; */
   display: flex;
   flex-direction: row;
   justify-content: space-around;
@@ -301,7 +293,6 @@ body {
   display: flex;
   flex-direction: column;
   padding: 0.75em;
-  /* padding-top: 0.25em; */
   text-align: left;
 }
 
