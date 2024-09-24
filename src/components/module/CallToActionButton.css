@@ -1,0 +1,39 @@
+/* call to action */
+
+.button {
+  padding: 0.5em;
+  border-radius: 10px;
+  height: 2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 0;
+}
+
+.call-to-action-background {
+  position: absolute;
+  width: calc(50vw);
+  right: 0;
+  left: 0;
+  margin: auto;
+  z-index: 500;
+  filter: drop-shadow(5px 0px 10px rgba(83, 80, 114, 0.75));
+  text-shadow: rgba(255, 255, 255, 0.2) 0px 0px 10px;
+}
+
+.call-to-action {
+  border-radius: 10px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  border: 0.5px solid rgba(10, 4, 20, 1);
+  outline: 1px solid rgba(151, 146, 156, 0.3);
+  background: linear-gradient(3deg, rgb(11, 7, 16) 0%, rgb(30, 30, 30) 100%);
+}

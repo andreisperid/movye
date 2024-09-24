@@ -1,3 +1,4 @@
+import "./Movies.css";
 import Movie from "../module/Movie";
 
 function Movies({ data, genreReference, theMovieDBOptions, setCurrentSelection }) {

@@ -1,0 +1,28 @@
+/* movies */
+
+.movies {
+  display: flex;
+  flex-direction: row;
+  overflow: auto;
+  padding-top: 70px;
+  padding-left: calc(5vw * 2);
+  padding-right: calc(5vw * 2);
+  height: calc(100% - 70px - 75px);
+  scroll-snap-type: x mandatory;
+}
+
+/* responsiveness */
+
+@media screen and (min-width: 1024px) {
+  .movies {
+    padding-left: calc(20vw * 2);
+    padding-right: calc(20vw * 2);
+  }
+}
+
+@media only screen and (max-width: 1023px) and (min-width: 680px) {
+  .movies {
+    padding-left: calc(20vw * 2);
+    padding-right: calc(20vw * 2);
+  }
+}

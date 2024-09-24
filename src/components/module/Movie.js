@@ -1,7 +1,8 @@
+import "./Movie.css";
 import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
-
 import { MaterialSymbolsLightStarOutlineRounded, MaterialSymbolsLightOpenInNewRounded } from "../scripts/icons.js";
+import Trailer from "./Trailer.js";
 
 function getGenres(genres, genreReference) {
   let genreList = [];
@@ -14,22 +15,6 @@ function getGenres(genres, genreReference) {
     }
   }
   return genreList.join(", ") + ".";
-}
-
-function Trailer({ videoKey }) {
-  return (
-    <iframe
-      className="trailer"
-      width="100%"
-      height="100%"
-      src={`https://www.youtube.com/embed/${videoKey}`}
-      title="YouTube video player"
-      color="white"
-      frameBorder="0"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-      allowFullScreen
-    ></iframe>
-  );
 }
 
 function Movie({
@@ -122,11 +107,10 @@ function Movie({
       })
       .catch((err) => console.error(err));
 
-    // get first youtube official trailer based on ID, then fallback to less ideal video categories
+    // get youtube official trailer based on movie ID
     fetch(`https://api.themoviedb.org/3/movie/${id}/videos?language=en-US`, theMovieDBOptions)
       .then((response) => response.json())
       .then((response) => {
-
         // prioritize videos that starts with ideal match, then broaden
         for (const r of response.results) {
           if (r.name.startsWith("Official Trailer")) {
@@ -200,10 +184,7 @@ function Movie({
               {` ${parseFloat(voteAverage).toFixed(1)} of 10 (${voteCount})`}
             </div>
             <div className="description" lang="en">
-              {/* TODO: smart paragraph breaking, below doesn't work for short sentences */}
-              {/* {description.split(". ").map((item, key) => (
-                <p key={key}>{(item + ".").replace("..", ".")}</p>
-              ))} */}
+              {/* TODO: smart paragraph breaking for description */}
               <p>{description}</p>
             </div>
             <div className="extra-information">
@@ -236,19 +217,16 @@ function Movie({
                   {` ${actors.toString().replaceAll(",", ", ")}`}
                 </div>
               </div>
-
-              {trailerId && !detailsActive ? (
-                <div className="three-columns">
-                  <div></div>
-                  <div className="trailer-link">
-                    <a href={`https://www.youtube.com/watch?v=${trailerId}`} target="_blank">
-                      Watch trailer
-                    </a>{" "}
-                    <MaterialSymbolsLightOpenInNewRounded />
-                  </div>
-                  <div></div>
+              <div className="three-columns">
+                <div></div>
+                <div className="trailer-link">
+                  <a href={`https://www.youtube.com/watch?v=${trailerId}`} target="_blank">
+                    Watch trailer
+                  </a>{" "}
+                  <MaterialSymbolsLightOpenInNewRounded />
                 </div>
-              ) : null}
+                <div></div>
+              </div>
             </div>
           </div>
           {trailerId && detailsActive ? <Trailer videoKey={trailerId} /> : null}

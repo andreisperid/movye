@@ -1,3 +1,4 @@
+import "./Assistant.css";
 import { useEffect, useState } from "react";
 import prompt from "../scripts/prompt.js";
 
@@ -15,10 +16,11 @@ function Assistant({ prePrompt, openAIOptions }) {
     async function getResult() {
       const received = await prompt.requester(finalPrompt, openAIOptions);
       const processed = received.split("&");
+
       setBotText(processed[2]);
       setResult(processed);
       setAwaitingResponse(false);
-      scrollDiv(`movie${processed[0]}`);
+      scrollToDiv(`movie${processed[0]}`);
     }
 
     if (awaitingResponse) {
@@ -45,7 +47,7 @@ function Assistant({ prePrompt, openAIOptions }) {
     }
   };
 
-  function scrollDiv(id) {
+  function scrollToDiv(id) {
     document.getElementById(id).scrollIntoView({
       behavior: "smooth",
     });

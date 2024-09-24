@@ -1,12 +1,11 @@
 import "./App.css";
 import { useEffect, useState } from "react";
-import prompt from "./components/scripts/prompt";
 import Movies from "./components/page/Movies";
 import CallToActionButton from "./components/module/CallToActionButton";
-
-// TODO: create backend script to obfuscate keys
-import keys from "./keys/keys";
 import Assistant from "./components/module/Assistant";
+import prompt from "./components/scripts/prompt";
+
+import keys from "./keys/keys"; // TODO: create backend script to obfuscate keys
 
 const theMovieDBOptions = {
   method: "GET",

@@ -1,5 +1,5 @@
+import "./CallToActionButton.css";
 import { useEffect, useState } from "react";
-
 import { MaterialSymbolsLightOpenInNewRounded } from "../scripts/icons.js";
 
 function CallToActionButton({ data, currentSelection }) {
